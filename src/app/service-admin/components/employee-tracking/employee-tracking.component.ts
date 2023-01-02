@@ -133,7 +133,7 @@ getDistanceFromLatLonInKm() {
       console.log(location)
       let a={
         "_id":e._id,
-       " loc_long":location.lng,
+       "loc_long":location.lng,
         "loc_lat":location.lat,
       }
       this._api.employee_jobwise(a)

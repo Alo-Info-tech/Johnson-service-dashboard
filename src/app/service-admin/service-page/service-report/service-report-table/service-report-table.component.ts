@@ -17,6 +17,19 @@ import { ApiService } from '../../../../api.service';
 import { ActivatedRoute } from '@angular/router';
 import { CDK_DROP_LIST } from '@angular/cdk/drag-drop';
 import { DatePipe } from '@angular/common';
+import { BreakdownpdfComponent } from '../../breakdownpdf/breakdownpdf.component';
+import { Injectable } from '@angular/core';
+import { BreakdownservicePdfComponent } from 'src/app/service-admin/components/breakdownservice-pdf/breakdownservice-pdf.component';
+function _window(): any {
+  return window;
+}
+
+@Injectable()
+export class WindowRef {
+  get nativeWindow(): any {
+    return _window();
+  }
+}
 @Component({
   selector: 'app-service-report-table',
   templateUrl: './service-report-table.component.html',
@@ -49,7 +62,8 @@ export class ServiceReportTableComponent implements OnInit {
 
   @ViewChild('table')
   tt: Table;
-
+windowWidth:any;
+windowHeight:any;
   active: any = [];
   value: any[];
   newexcel: void[];
@@ -340,8 +354,25 @@ var year = new Date(new Date().getFullYear() , 0, 1);
   viewpdf1(data) {
     console.log(data);
     this.storage.set('job_detail', data);
-    this.router.navigate(['/service-admin/Breakdownservice-Pdf'])
+    //  this.router.navigate(['/Breakdownservice-Pdf'])
+    // this.router.navigate(['']).then(result => {  window.open('/Breakdownservice-Pdf', '_blank'); });
+    // const url = this.router.serializeUrl(
+    //   this.router.createUrlTree(['/Breakdownservice-Pdf'])
+    // );
+    this.windowWidth= window.innerWidth;
+    this.windowHeight = window.innerWidth;
+    const dialogRef = this.dialog.open(BreakdownservicePdfComponent, {
+      width: this.windowWidth,
+      height:this.windowHeight
+    });
 
+    dialogRef.afterClosed().subscribe(password => {
+
+
+
+
+    });
+  ;
   }
   viewpdf2(data) {
     console.log(data);
@@ -360,6 +391,9 @@ var year = new Date(new Date().getFullYear() , 0, 1);
     this.storage.set('job_detail', data);
     this.router.navigate(['/service-admin/parts-ack-pdf'])
 
+  }
+  editService(){
+    this.router.navigate(['/service-admin/edit-service-report-table'])
   }
   onDrop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.items, event.previousIndex, event.currentIndex);

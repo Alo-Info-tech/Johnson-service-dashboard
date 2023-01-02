@@ -209,7 +209,13 @@
                                             <img *ngIf="Job_type == 'Job Submitted'"
                                                 class="pl-2"(click)="viewpdf1(item)"
                                                 src="../../../../assets/images/PDF_file_icon.png"
-                                                style="width:13%"></span>
+                                                style="width:13%">
+                                                <span  class="pl-2"> <i style="color: #2196f3;"
+                                                    class="fas fa-edit"
+                                                    aria-hidden="true"
+                                                    pTooltip="Edit" (click)="editService()"
+                                                    ></i></span>
+                                                </span>
                                         <span *ngIf="e == 'SCH_CUSNAME'">{{item.SMU_SCH_CUSNAME}}</span>
                                         <span *ngIf="e == 'SCH_MECHANIC'">{{item.SMU_SCH_MECHANIC}}</span>
                                         <span *ngIf="e == 'JOB_STATUS'">
@@ -500,7 +506,11 @@
                                             <img *ngIf="Job_type == 'Job Submitted'"
                                                 class="pl-2"(click)="viewpdf3(item)"
                                                 src="../../../../assets/images/PDF_file_icon.png"
-                                                style="width:13%"></span>
+                                                style="width:13%">
+                                               
+                                               
+
+                                            </span>
                                         <span *ngIf="e == 'SED_NAME'">{{item.SMU_SED_NAME}}</span>
                                         <span *ngIf="e == 'SCAH_MECHANIC'">{{item.SMU_SCAH_MECHANIC}}</span>
                                         <span *ngIf="e == 'JOB_STATUS'">

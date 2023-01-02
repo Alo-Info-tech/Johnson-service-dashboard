@@ -136,7 +136,7 @@ export class BreakdownservicePdfComponent implements OnInit {
      document.body.innerHTML = printContents;
      window.print();
      document.body.innerHTML = originalContents;
-     window.location.reload();
+    //  window.location.reload();
 }
 
 

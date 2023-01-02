@@ -49,6 +49,7 @@ import { NotificationPopSendComponent } from './components/notification-pop-send
 import { NotificationPopSendListComponent } from './components/notification-pop-send-list/notification-pop-send-list.component';
 import { JobTrackingComponent } from './components/job-tracking/job-tracking.component';
 import { EmployeeTrackingComponent } from './components/employee-tracking/employee-tracking.component';
+import { EditServiceReportTableComponent } from './service-page/service-report/edit-service-report-table/edit-service-report-table.component';
 const routes: Routes = [
   { path: '', redirectTo: 'service-dashboard', pathMatch: 'full' },
   { path: 'service-dashboard', component: ServiceDashboardComponent },
@@ -56,6 +57,7 @@ const routes: Routes = [
   { path: 'service-report', component: ServiceReportComponent },
   { path: 'Attendance-report', component: AttendanceComponent },
   { path: 'service-report-table', component: ServiceReportTableComponent },
+  { path: 'edit-service-report-table', component: EditServiceReportTableComponent },
   { path: 'Resubmit-BD', component: ResubmitBreakdownComponent },
   { path: 'Resubmit-pr', component: ResubmitPrimitiveComponent },
   { path: 'Resubmit-LR', component: ResubmitLRComponent },
