@@ -73,7 +73,7 @@
       [circleDraggable]="true"
       [editable]="true">
   </agm-circle> -->
-  <agm-direction [origin]="origin" [destination]="destination"></agm-direction>
+  <agm-direction [origin]="origin" [destination]="destination" [waypoints]="waypoints"></agm-direction>
 </agm-map>
 <div *ngIf="employeetable==true" class="table-responsive mt-5">
   <p-table [value]="rows " styleClass="ui-table-customers" #tt [paginator]="true" [rows]="5"

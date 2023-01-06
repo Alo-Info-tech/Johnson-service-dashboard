@@ -6,6 +6,7 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GeocodeService } from 'src/app/geocode.service';
+import { ThemeService } from 'ng2-charts';
 
 // declare module 'googlemaps';
 declare var google: any;
@@ -17,6 +18,7 @@ declare var google: any;
 export class JobTrackingComponent implements OnInit {
   origin;
   destination;
+  waypoints=[];
    // google maps zoom level
   zoom: number = 8;
 
@@ -37,6 +39,7 @@ export class JobTrackingComponent implements OnInit {
   calckmValue=[];
   removecalvalue=[];
   
+  
   constructor(private router:Router, private geocodeService:GeocodeService, private toastr:ToastrManager,private _api: ApiService, public dialog: MatDialog) { }
 
   ngOnInit(){
@@ -53,6 +56,8 @@ job_search()
 
  this.calckmValue=[];
  this.comparekmvalue=[];
+ this.markers=[];
+ this.waypoints=[];
   this._api.job_tracking(a).subscribe(
     (response: any) => {
    
@@ -73,6 +78,23 @@ job_search()
           location_text:e.location_text,
          })
       })
+         if(this.markers.length>1){
+    this.origin = { lat: Number(this.markers[0].lat) , lng: Number(this.markers[0].lng)};
+    this.destination = { lat: Number(this.markers[1].lat) , lng: Number(this.markers[1].lng)};
+   }
+  if(this.markers.length>=3){
+    this.markers.map((aa:any,i)=>{
+     
+      if(i>1){
+        console.log(i);
+         this.waypoints.push({location: { lat: Number(aa.lat), lng: Number(aa.lng) }})
+        //  this.waypoints=[{location: { lat: 12.135483950103078, lng: 78.16094138032794 }}]
+
+      }
+    })
+  }
+  console.log("asa",this.origin);
+  console.log(  this.waypoints);
       this.comparekmvalue.push({
         lat: 0,
         lng: 0,
@@ -84,6 +106,7 @@ job_search()
       //   var deg2Rad = deg => {
       //     return deg * Math.PI / 180;
       // }
+      console.log("aa",aa);
 
       this.lat1= aa.lat ; this.lng1= aa.lng;this.lat2= this.comparekmvalue[i].lat; this.lng2= this.comparekmvalue[i].lng;
       const geocoder = new google.maps.Geocoder();
@@ -131,9 +154,10 @@ job_search()
   );
   // this.removecalvalue=['a','b','c','d']; 
    var aabb= this.removecalvalue.pop()
-  console.log(  this.removecalvalue);
-  this.origin = { lat: 13.0780615 , lng: 80.1469788};
-  this.destination = { lat: 13.0930706, lng: 80.2055504 };
+
+
+ 
+ 
   
 }
 viewpdf(data){

@@ -8,6 +8,8 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
 import { EmployeeTrackingeditComponent } from '../../employee-trackingedit/employee-trackingedit.component';
 import { GeocodeService } from 'src/app/geocode.service';
+// declare module 'googlemaps';
+declare var google: any;
 @Component({
   selector: 'app-employee-tracking',
   templateUrl: './employee-tracking.component.html',
@@ -17,6 +19,7 @@ export class EmployeeTrackingComponent implements OnInit {
  // google maps zoom level
   origin;
   destination;
+  waypoints=[];
  zoom: number = 8;
  markers: marker[] = []
  // initial center position for the map
@@ -31,7 +34,9 @@ export class EmployeeTrackingComponent implements OnInit {
  lat2: number;
  lng2: number;
  km: number;
- 
+ comparekmvalue=[]
+ calckmValue=[];
+ removecalvalue=[];
 
  
 
@@ -48,7 +53,10 @@ employee_search()
 		"user_mobile_no":this.usermobileno,
 	}
 	console.log(a);
-
+  this.calckmValue=[];
+  this.comparekmvalue=[];
+  this.markers=[];
+  this.waypoints=[];
 this._api.employee_tracking(a).subscribe(
 	(response: any) => {
 		console.log(response.Data);
@@ -62,13 +70,106 @@ this._api.employee_tracking(a).subscribe(
 			location_text:e.location_text,
 			user_mobile_no:e.user_mobile_no
 		   })
+       this.comparekmvalue.push({
+        lat: e.loc_lat,
+        lng: e.loc_long,
+        job_no:e.job_no,
+        location_text:e.location_text,
+       })
+
 		})
-		console.log(this.markers);
-	});
-  this.origin = { lat: 12.9178635 , lng: 80.1081463};
-  this.destination = { lat:  8.193493542596606, lng: 77.43395242448341 };
+    if(this.markers.length>1){
+      this.origin = { lat: Number(this.markers[0].lat) , lng: Number(this.markers[0].lng)};
+      this.destination = { lat: Number(this.markers[1].lat) , lng: Number(this.markers[1].lng)};
+     }
+    if(this.markers.length>=3){
+      this.markers.map((aa:any,i)=>{
+       
+        if(i>1){
+          // console.log(i);
+           this.waypoints.push({location: { lat: Number(aa.lat), lng: Number(aa.lng) }})
+          // this.waypoints=[{location: { lat: 12.135483950103078, lng: 78.16094138032794 }}]
+  
+        }
+      })
+    }
+    // console.log("asa",this.origin);
+    console.log(  this.waypoints);
+        this.comparekmvalue.push({
+          lat: 0,
+          lng: 0,
+          job_no:0,
+          location_text:"chennai",
+         })
+         this.comparekmvalue.shift();
+         var kmvalue=this.markers.map((aa:any,i)=>{
+        //   var deg2Rad = deg => {
+        //     return deg * Math.PI / 180;
+        // }
+        // console.log("aa",aa);
+  
+        this.lat1= aa.lat ; this.lng1= aa.lng;this.lat2= this.comparekmvalue[i].lat; this.lng2= this.comparekmvalue[i].lng;
+        const geocoder = new google.maps.Geocoder();
+        const service = new google.maps.DistanceMatrixService();
+    
+        // build request
+        const origin1 = { lat: Number(this.lat1), lng: Number(this.lng1) };
+        const origin2 =aa.location_text;
+        const destinationA =this.comparekmvalue[i].location_text;
+        const destinationB = { lat: Number(this.comparekmvalue[i].lat), lng: Number(this.comparekmvalue[i].lng) };
+    
+        const request = {
+          origins: [origin1, origin2],
+          destinations: [destinationA, destinationB],
+          travelMode: google.maps.TravelMode.DRIVING,
+          unitSystem: google.maps.UnitSystem.METRIC,
+          avoidHighways: false,
+          avoidTolls: false,
+        };
+        console.log(this.comparekmvalue[i]);
+        service.getDistanceMatrix(request).then((response) => {
+          console.log('sdasjy', response.rows[0].elements[0].distance.text)
+          this.km=response.rows[0].elements[0].distance.text;
+          this.calckmValue.push(this.km)
+        })
+        // var r = 6371; // Radius of the earth in km
+        //   var dLat = deg2Rad(this.lat2 - this.lat1);   
+        // var dLon = deg2Rad( this.lng2- this.lng1);
+        // var a =
+        //     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        //     Math.cos(deg2Rad(this.lat1)) * Math.cos(deg2Rad(this.lat2)) *
+        //     Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        // var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        // this.km= r * c; 
+    
+         })
+        //  console.log(this.calckmValue);
+        //  this.calckmValue.pop();
+        setTimeout(() => {
+        
+           this.calckmValue.pop()
+           console.log(this.calckmValue);
+        }, 500);
+      }
+    );
+    // this.removecalvalue=['a','b','c','d']; 
+     var aabb= this.removecalvalue.pop()
+  
+  
+   
+   
+    
+  }
+
+
+
+    
+// 		console.log(this.markers);
+// 	});
+//   this.origin = { lat: 12.9178635 , lng: 80.1081463};
+//   this.destination = { lat:  8.193493542596606, lng: 77.43395242448341 };
 	
-}
+// }
 
 
 
@@ -126,7 +227,7 @@ getDistanceFromLatLonInKm() {
   {
     
   }
-  locationmap(e){
+  locationmap(e:any){
     console.log(e);
     this.geocodeService.geocodeAddress(e.location_text)
     .subscribe((location: any) => {

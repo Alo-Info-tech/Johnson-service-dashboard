@@ -42,7 +42,7 @@
   [zoomControl]="false"
 >
 
-  <agm-marker 
+   <agm-marker 
       *ngFor="let m of markers; let i = index"
       (markerClick)="clickedMarker(m.label, i)"
       [latitude]="m.lat"
@@ -58,7 +58,7 @@
       <strong>{{km}}</strong>
     </agm-info-window>
     
-  </agm-marker>
+  </agm-marker> 
   
   
   
@@ -68,7 +68,7 @@
       [circleDraggable]="true"
       [editable]="true">
   </agm-circle> -->
-  <agm-direction [origin]="origin" [destination]="destination"></agm-direction>
+  <agm-direction [origin]="origin" [destination]="destination" [waypoints]="waypoints"></agm-direction>
 </agm-map>
 
 
