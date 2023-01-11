@@ -28,6 +28,7 @@ export class ReportBreakdownComponent implements OnInit {
   rows:any;
   Admin_check:any
   barChartData:any=[];
+ 
     reportSide= [ 
       {"name": "Material Request"}, 
       {"name": "StockManagement"}, 
@@ -84,6 +85,7 @@ export class ReportBreakdownComponent implements OnInit {
           pointHoverBorderColor: 'rgba(77,20,96,1)'
         }
       ];
+      
       status: boolean = false;
   Not_Started: any;
   Job_Submitted: any;
@@ -314,7 +316,7 @@ this._api.getbreak_down_chart(this.data).subscribe((response: any) => {
 
 public chartHovered(e:any):void {
 
-}
+} 
 
 public randomize():void {
   let data = [

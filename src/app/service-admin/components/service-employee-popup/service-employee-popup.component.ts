@@ -5,6 +5,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/api.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-service-employee-popup',
@@ -17,6 +18,9 @@ export class ServiceEmployeePopupComponent implements OnInit {
   service_completed: any;
   jobServices:[];
   showservice:boolean =false;
+
+  passed_date_value = new DatePipe('en-US').transform(new Date(),'yyyy-MM-dd');
+
   constructor(public dialogRef: MatDialogRef<ServiceEmployeePopupComponent>,
     @Inject(MAT_DIALOG_DATA) data, private _api: ApiService,private toastr:ToastrManager,) {
       console.log('{ -----', data);
@@ -53,4 +57,8 @@ console.log(a);
   showError(msg) {
       this.toastr.errorToastr(msg);
   }
+  search_passed_date(){
+    
+  }
+
 }

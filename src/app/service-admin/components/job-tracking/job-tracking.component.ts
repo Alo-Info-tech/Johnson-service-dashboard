@@ -6,7 +6,7 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GeocodeService } from 'src/app/geocode.service';
-import { ThemeService } from 'ng2-charts';
+
 
 // declare module 'googlemaps';
 declare var google: any;
@@ -71,6 +71,9 @@ job_search()
           user_mobile_no:e.user_mobile_no,
         
          })
+         this.lat=this.markers[0].lat;
+         this.lng=this.markers[0].lng;
+         this.zoom=12;
          this.comparekmvalue.push({
           lat: e.loc_lat,
           lng: e.loc_long,

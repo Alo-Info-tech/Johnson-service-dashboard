@@ -1,4 +1,31 @@
+@import "../../../../assets/css/style.css";
 :host::ng-deep button:focus {
   
     outline: 0px auto -webkit-focus-ring-color;
 }
+input[type="date"], input[type="datetime-local"], input[type="month"], input[type="time"] {
+    -webkit-appearance: listbox;
+    font-size: 14px;
+    color: #333;
+    background: #eeeeee;
+    padding: 10px;
+    border: 1px solid #dcdcdc;
+      border-top-color: rgb(220, 220, 220);
+      border-right-color: rgb(220, 220, 220);
+      border-bottom-color: rgb(220, 220, 220);
+      border-left-color: rgb(220, 220, 220);
+    border-top-color: rgb(220, 220, 220);
+    border-right-color: rgb(220, 220, 220);
+    border-bottom-color: rgb(220, 220, 220);
+    border-left-color: rgb(220, 220, 220);
+    border-top-color: rgb(220, 220, 220);
+    border-right-color: rgb(220, 220, 220);
+    border-bottom-color: rgb(220, 220, 220);
+    border-left-color: rgb(220, 220, 220);
+    border-top-color: rgb(220, 220, 220);
+    border-right-color: rgb(220, 220, 220);
+    border-bottom-color: rgb(220, 220, 220);
+    border-left-color: rgb(220, 220, 220);
+    transition: border-color 0.2s, box-shadow .2s;
+    width: 41%;
+  }

@@ -1,12 +1,23 @@
 <div class="modal-header" style="position: relative;    padding: 5px;
 bottom: 21px;">
-  <h5 class="modal-title" id="exampleModalLongTitle">List of jobs for</h5>
 
+<div class="input-group ">
+  <!-- <p-calendar  [showIcon]="true" inputId="icon" placeholder="Select Date" class="mr-3"></p-calendar>                         -->
+ <input type="date" class="inputdes" [(ngModel)]="passed_date_value">
+ 
+    <button type="button" class="btn btn-secondary" style="margin-left:10px"
+  > Find</button>
+
+</div>
+
+  
   <button type="button" class="close" mat-dialog-close aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="card ">
+  <h5 class="modal-title p-2" id="exampleModalLongTitle">List of jobs for</h5>
+
   <div class="card-header text-center">
     Job Status
   </div>
@@ -25,8 +36,10 @@ bottom: 21px;">
   </table> 
   </div>
   <div>
+    
 
     <table style=" width: 100%;" *ngIf="showservice">
+      
       <tr>
         <th style="width: 20%;">job_id</th>
         <th style="width: 40%;">start_time</th>

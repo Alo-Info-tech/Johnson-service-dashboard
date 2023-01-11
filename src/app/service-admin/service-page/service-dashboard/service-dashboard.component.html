@@ -34,6 +34,7 @@
 <!-- <button (click)="search_passed_date()">Search</button> -->
 <button _ngcontent-xyl-c233="" type="button" (click)="search_passed_date()" class="btn btn-secondary"> Submit</button>
 
+
   <button type="button" class="btn btn-secondary"
       (click)="exceldownload()"> Excel</button>
 
@@ -47,32 +48,111 @@
 <div class="row row-sm mt-5">
 
   <div class="col-lg-12">
-      <div class="card custom-card" style="align-items: center;">
+      <div class="card custom-card" >
           <div class="card-body">
               <div class="card-item">
+                <div class="container">
                   <div class="row ">
-                
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-3">
                       <div class=" stylecont text-center "  >
-                          <span class=""  >Total Number of Users <p class="countstyle"> {{count_value_total}}</p></span>
+                          <!-- <span class=""  > Users <p class="countstyle"> {{count_value_total}}</p></span> -->
+                          <p>Users<span class="countstyle"style="font-size: 14px;"> {{count_value_total}}</span> </p>
                           <!-- <p class="colcolor">{{Not_Started}}</p> -->
                       </div>
+                    </div>
+                      <div class="col-md-3">
                       <div class=" stylecont text-center "  >
-                          <span class=""  >Total Number of Log in<p class="countstyle">{{count_value_present}}</p></span>
+                          <!-- <span class=""  > Log in<p class="countstyle">{{count_value_present}}</p></span> -->
+                          <p>Log in<span class="countstyle"style="font-size:14px;"> {{count_value_present}}</span></p>
                           <!-- <p class="colcolor">{{Job_Started}}</p> -->
                       </div>
+                    </div>
+                 
+                   
+                      <div class="col-md-3">
                       <div class=" stylecont text-center "  >
-                          <span class=""  >Total Number of Log Out<p class="countstyle">{{count_value_logout}}</p></span>
+                          <!-- <span class=""  > Log Out<p class="countstyle">{{count_value_logout}}</p></span> -->
+                          <p>Log Out<span class="countstyle"style="font-size:14px;"> {{count_value_logout}}</span></p>
                           <!-- <p class="colcolor">{{Job_Paused}}</p> -->
                       </div>
-                   
-                 
+                    </div>
+                      <div class="col-md-3">
                       <div class=" stylecont text-center " >
-                          <span class=""  >Total Number of Not Login<p class="countstyle">{{count_value_notlogin}}</p></span>
+                          <!-- <span class=""  >Not Login<p class="countstyle">{{count_value_notlogin}}</p></span> -->
+                          <p>Not Login<span class="countstyle" style="font-size: 14px;"> {{count_value_notlogin}}</span></p>
                           <!-- <p class="colcolor">{{Job_Submitted}}</p> -->
                       </div>
-                     
-                 
+                    </div>
+                  
+
+
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div style="" class="service-dashboard-table">
+                          <p-table [value]="temp_value | filter:searchQR" styleClass="ui-table-customers" #tt [paginator]="true" [rows]="5" 
+                          [rowHover]="true" [rowsPerPageOptions]="[5,10,25,50]" [showCurrentPageReport]="true"
+                          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [globalFilterFields]="['type']">
+                          <ng-template pTemplate="header">
+                          <tr class="thhead">
+                            <th>S.no</th>
+                            <th>Users</th>
+                            <th>Branch</th>
+                            <th>Log in Status</th>
+                            <th>Log in</th>
+                            <th>Log out </th>
+                            <th>Not Login</th>
+                         
+                          </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-item  let-i="rowIndex">
+                          <tr class="tdrow">
+                            <td>{{i+1}}</td>
+                            <td>{{item.user_name}}</td>
+                            <td>{{item.user_location}}</td>
+                            <td>{{item.user_type}}</td>
+                            <td>{{item.last_login_time | date : 'dd-MM-yyyy HH:mm'}}</td>
+                            <td *ngIf="item.Documents == ''" >-</td>
+                            <td *ngIf="item.Documents !== ''" >{{item.last_logout_time | date : 'dd-MM-yyyy HH:mm'}}</td>
+                            <td>{{item.Documents}}</td>
+                          </tr>
+                          </ng-template>
+                          </p-table>   
+                        </div>
+              
+                                  </div>             
+                    </div>
                   </div>
+
+
+                    
+                    <div class="col-md-6">
+                    
+                        <div class="col-md-12">
+                                <div style="display: block">
+                                        <canvas baseChart
+                                                [datasets]="barChartData"
+                                                [labels]="mbarChartLabels"
+                                                [options]="barChartOptions"
+                                                [colors]="barChartColors"
+                                                [legend]="barChartLegend"
+                                                [chartType]="barChartType"
+                                                (chartHover)="chartHovered($event)"
+                                                (chartClick)="chartClicked($event)"></canvas>
+                                      </div>
+
+                        </div>
+
+                 
+
+                    </div>
+                    
+
+                 
+                </div>
+  
               </div>
           </div>
       </div>

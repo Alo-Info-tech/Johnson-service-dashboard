@@ -22,8 +22,9 @@ tr:nth-child(even) {
     border: 1px solid #090808;
     border-radius: 10px;
     margin: 0 0 7px;
+    font-size:9px;
     background: white;
-    margin: 1px 10px 6px;
+    /* margin: 1px 10px 6px; */
 }
 .countstyle
 {
@@ -31,6 +32,16 @@ tr:nth-child(even) {
 font-weight: 500;
 color: #f36f21;
 padding-top: 10px;
+}
+.colcolor{
+  font-size: 23px;
+  font-weight: 500;
+  color: #f36f21;
+  padding-top: 10px;
+}
+
+.ui-table-customers.ui-table.ui-widget.ui-table-hoverable-rows {
+  width: 400px;
 }
 .inputdes
 {
@@ -50,3 +61,13 @@ border-left-color: rgb(220, 220, 220);
 transition: border-color 0.2s, box-shadow .2s;
 width: 100%;
 }
+:host::ng-deep .chartjs-render-monitor {
+    height: 300px !important;
+    width: 330px !important;
+  }
+  :host ::ng-deep.service-dashboard-table .ui-table {
+    overflow-x: auto;
+}
+  :host ::ng-deep.service-dashboard-table .ui-table .ui-table-thead > tr > th {
+    width: max-content;
+  }

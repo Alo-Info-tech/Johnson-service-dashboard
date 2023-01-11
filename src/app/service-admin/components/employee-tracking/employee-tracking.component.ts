@@ -34,7 +34,7 @@ export class EmployeeTrackingComponent implements OnInit {
  lat2: number;
  lng2: number;
  km: number;
- comparekmvalue=[]
+ comparekmvalue=[];
  calckmValue=[];
  removecalvalue=[];
 

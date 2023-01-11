@@ -38,7 +38,7 @@ export class ServiceDashboardComponent implements OnInit {
   count_value_present  = 0;
   count_value_logout = 0;
   count_value_notlogin = 0;
-
+ 
 
 
 
@@ -59,6 +59,41 @@ export class ServiceDashboardComponent implements OnInit {
   access_tocken:any
   Admin_check:any
   newexcel: any;
+  barChartData:any=[];
+ 
+  public mbarChartLabels:string[] = [' Service Reports'];
+  public barChartOptions:any = {
+    scaleShowVerticalLines: false,
+    responsive: true,
+    plugins: {
+      tooltip: {
+        enabled: false // <-- this option disables tooltips
+      }
+    },
+ 
+
+  };
+  public barChartColors:Array<any> = [
+    {
+      backgroundColor: 'rgba(241,111,32,1)',
+      borderColor: 'rgba(105,159,177,1)',
+      pointBackgroundColor: 'rgba(105,159,177,1)',
+      pointBorderColor: '#fafafa',
+      pointHoverBackgroundColor: '#fafafa',
+      pointHoverBorderColor: 'rgba(105,159,177)'
+    },
+    { 
+      backgroundColor: 'rgba(77,20,96,0.3)',
+      borderColor: 'rgba(77,20,96,1)',
+      pointBackgroundColor: 'rgba(77,20,96,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(77,20,96,1)'
+    }
+  ];
+  public barChartLegend:boolean = true;
+  public barChartType:string = 'bar';
+      
   header = ["S no", "Emp Name", "Emp Code", "Emp Phone", "Location Name", "Emp type",
   "Device Number", "Status", "Login Status", "Last Login Time","Last LogoutTime","Action"];
   // rows=[{"agent_name":"arun","agent_phone":"8794561230","Email_id":"Arun@gmail.com","org_name":"Jhonshon","location_name":"chennai","mobile_model":"Nokia","mobile_make":"HMD","imei":"321546687"}]
@@ -84,6 +119,12 @@ export class ServiceDashboardComponent implements OnInit {
       this.total_list_all = [];
       this.total_login = [];
       this.total_logout = [];
+      this.barChartData = [
+        {data: [this.count_value_total], label: 'Total Number of Users'},
+        {data: [this. count_value_present  ], label: 'Total Number of Log in'},
+        {data: [ this.count_value_logout ], label: 'Total Number of Log Out'},
+        {data: [ this.count_value_notlogin], label: 'Total Number of Not Login'},
+      ];
       let newdate = new Date();
       let todaydate = new Date();
        newdate.setDate(newdate.getDate() + 1)
@@ -143,6 +184,16 @@ export class ServiceDashboardComponent implements OnInit {
   console.log(this.branchList);
   this.selected_location = this.branchList[0].branch_code;
   }
+  }
+  public chartClicked(e:any):void {
+    console.log(e)
+  
+  
+   
+  }
+  
+  public chartHovered(e:any):void {
+  
   }
   refersh(){
     this._api.service_employee_list().subscribe((data:any)=>{
@@ -358,6 +409,7 @@ detail:any;
       this.count_value_present  = 0;
       this.count_value_logout = 0;
       this.count_value_notlogin = 0;
+     
       this.total_list_all.forEach(element => {
         if(element.user_location == this.selected_location){
           this.temp_value.push(element);
@@ -390,6 +442,8 @@ startTimer2() {
     element.count_value_present = 0;
     element.count_value_logout = 0;
     element.count_value_notlogin = 0;
+    
+
   });
   this.interval = setInterval(() => {
     console.log(this.timeLeft);
@@ -413,12 +467,21 @@ startTimer2() {
      this.pauseTimer();
     }
   },1000)
+  this.barChartData = [
+    {data: [this.count_value_total], label: 'Total Number of Users'},
+    {data: [this. count_value_present  ], label: 'Total Number of Log in'},
+    {data: [ this.count_value_logout ], label: 'Total Number of Log Out'},
+    {data: [ this.count_value_notlogin], label: 'Total Number of Not Login'},
+  ];
 }
 
 
 pauseTimer() {
+  
   clearInterval(this.interval);
+  
 }
+
 
 
 

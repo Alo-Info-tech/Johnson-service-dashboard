@@ -556,3 +556,11 @@ textarea {
     padding-right: 2em;
     margin-bottom: 0
 }
+:host ::ng-deep.service-dashboard-table .ui-table {
+    overflow-x: auto;
+}
+  :host ::ng-deep.service-dashboard-table .ui-table .ui-table-thead > tr > th {
+    width: max-content;
+  }
+
+
