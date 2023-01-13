@@ -60,7 +60,6 @@ job_search()
  this.waypoints=[];
   this._api.job_tracking(a).subscribe(
     (response: any) => {
-   
       this.rows = response.Data;
       this.rows.map((e:any)=>{
         this.markers.push({
