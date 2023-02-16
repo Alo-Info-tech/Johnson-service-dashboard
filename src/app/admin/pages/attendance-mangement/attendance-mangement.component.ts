@@ -18,7 +18,6 @@ export class AttendanceMangementComponent implements OnInit {
   rows = [];
   searchQR:any;
   value1:any;
-
   S_Date: any;
   E_Date: any;
   job_detail_no : string = '';
